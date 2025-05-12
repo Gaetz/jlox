@@ -18,7 +18,7 @@ public class GenerateAst {
                     "Binary   : Expr left, Token operator, Expr right",
                     "Grouping : Expr expression",
                     "Literal  : Object value",
-                    "Unary    : Token operator, Expr right",
+                    "Unary    : Token operator, Expr right"/*,
 
                     "Assign   : Token name, Expr value",
                     "Call     : Expr callee, Token paren, List<Expr> arguments",
@@ -27,7 +27,7 @@ public class GenerateAst {
                     "Set      : Expr object, Token name, Expr value",
                     "Super    : Token keyword, Token method",
                     "This     : Token keyword",
-                    "Variable : Token name"
+                    "Variable : Token name"*/
             ));
         } catch (IOException e) {
             throw new RuntimeException(e);
