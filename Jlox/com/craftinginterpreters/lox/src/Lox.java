@@ -10,7 +10,9 @@ import java.util.List;
 
 public class Lox {
 
+    private static final Interpreter interpreter = new Interpreter();
     static boolean hadError = false;
+    static boolean hadRuntimeError = false;
 
     public static void main(String[] args) {
         if (args.length > 1) {
@@ -33,6 +35,7 @@ public class Lox {
         String source = new String(bytes, Charset.defaultCharset());
         run(source);
         if (hadError) System.exit(65);
+        if (hadRuntimeError) System.exit(70);
     }
 
     private static void runPrompt() {
@@ -60,17 +63,17 @@ public class Lox {
         Parser parser = new Parser(tokens);
         Expr expression = parser.parse();
         // Stop if there was a syntax error.
-        if (hadError) return;
+        //if (hadError) return;
+        //System.out.println(new AstPrinter().print(expression));
 
-        System.out.println(new AstPrinter().print(expression));
-
+        interpreter.interpret(expression);
     }
 
-    static void error(int line, String message) {
+    public static void error(int line, String message) {
         report(line, "", message);
     }
 
-    static void error(Token token, String message) {
+    public static void error(Token token, String message) {
         if (token.type == TokenType.EOF) {
             report(token.line, " at end", message);
         } else {
@@ -78,8 +81,15 @@ public class Lox {
         }
     }
 
+    public static void runtimeError(RuntimeError error) {
+        System.err.println(error.getMessage() + "\n[line " + error.token.line + "]");
+        hadRuntimeError = true;
+    }
+
     private static void report(int line, String where, String message) {
         System.err.println("[line " + line + "] Error" + where + ": " + message);
         hadError = true;
     }
+
+
 }
