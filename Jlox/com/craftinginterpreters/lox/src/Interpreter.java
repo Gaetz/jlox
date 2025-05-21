@@ -64,6 +64,8 @@ public class Interpreter implements Expr.Visitor<Object> {
             case LESS_EQUAL:
                 return (double) left <= (double) right;
         }
+
+        return null;
     }
 
     private boolean isTruthy(Object object) {
