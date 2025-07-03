@@ -29,6 +29,10 @@ public class GenerateAst {
                     "This     : Token keyword",
                     "Variable : Token name"*/
             ));
+            defineAst(outputDir, "Stmt", Arrays.asList(
+                    "Expression : Expr expression",
+                    "Print      : Expr expression"
+            ));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
